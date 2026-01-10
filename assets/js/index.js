@@ -13,8 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const offcanvas = document.getElementById("mobileMenu");
     const overlay = document.querySelector(".offcanvas-overlay");
     const closeBtn = document.querySelector(".offcanvas__close");
-
-    // Clone menu into offcanvas
     const desktopMenu = document.querySelector(".header__menu");
     const mobileMenu = document.querySelector(".offcanvas__menu");
     mobileMenu.innerHTML = desktopMenu.innerHTML;
@@ -33,7 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
     closeBtn.addEventListener("click", closeMenu);
     overlay.addEventListener("click", closeMenu);
 
-    // Submenu toggle
     mobileMenu.addEventListener("click", function (e) {
         const parent = e.target.closest(".header__menu-item--has-submenu");
         if (!parent) return;
@@ -73,8 +70,6 @@ items.forEach(item => {
 });
 
 $(document).ready(function () {
-
-    // Main product slider
     const $mainSlider = $('#product-slider-for');
 
     $mainSlider.slick({
@@ -87,18 +82,15 @@ $(document).ready(function () {
         adaptiveHeight: true
     });
 
-    // Thumbnail click → change main slider
     $('.product-showcase__thumb').on('click', function () {
         const slideIndex = $(this).data('slide');
 
         $mainSlider.slick('slickGoTo', slideIndex);
 
-        // Active state
         $('.product-showcase__thumb').removeClass('is-active');
         $(this).addClass('is-active');
     });
 
-    // Sync thumbnail when slider changes (swipe / programmatic)
     $mainSlider.on('afterChange', function (event, slick, currentSlide) {
         $('.product-showcase__thumb')
             .removeClass('is-active')
@@ -106,7 +98,13 @@ $(document).ready(function () {
             .addClass('is-active');
     });
 
-    // Set first thumb active on load
     $('.product-showcase__thumb').eq(0).addClass('is-active');
 
+});
+document.querySelectorAll('.company-stats__value').forEach(el => {
+    let i = 0, target = +el.dataset.target;
+    const timer = setInterval(() => {
+        el.textContent = i + '%';
+        if (i++ >= target) clearInterval(timer);
+    }, 30);
 });
